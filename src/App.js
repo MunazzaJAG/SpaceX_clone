@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import heroImage from "./images/hero.jpg";
+
+import heroVideo from "./videos/hero.mp4";
+
+import marsImage from "./images/mars.jpg";
+import starshipImage from "./images/starship.webp";
+import falcon9Image from "./images/falcon9.jpg";
+import starlinkImage from "./images/starlink.jpg";
+import spacexaiImage from "./images/spacexai.webp";
+import terafabImage from "./images/terafab.png";
 
 function App() {
-  // ==============================
+  // =========================================
   // COUNTDOWN
-  // ==============================
+  // =========================================
 
   const [heroCountdown, setHeroCountdown] = useState(
     5 * 24 * 60 * 60 +
@@ -20,21 +28,21 @@ function App() {
       58
   );
 
-  // ==============================
+  // =========================================
   // POPUP
-  // ==============================
+  // =========================================
 
   const [activePopup, setActivePopup] = useState(null);
 
-  // ==============================
+  // =========================================
   // MOBILE MENU
-  // ==============================
+  // =========================================
 
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // ==============================
+  // =========================================
   // COUNTDOWN TIMER
-  // ==============================
+  // =========================================
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -50,9 +58,9 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // ==============================
-  // ESC CLOSE POPUP
-  // ==============================
+  // =========================================
+  // ESC TO CLOSE POPUP
+  // =========================================
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -71,9 +79,9 @@ function App() {
     };
   }, []);
 
-  // ==============================
-  // FORMAT TIME
-  // ==============================
+  // =========================================
+  // FORMAT COUNTDOWN
+  // =========================================
 
   const formatTime = (seconds) => {
     const days = Math.floor(seconds / 86400);
@@ -92,42 +100,48 @@ function App() {
     const m = String(minutes).padStart(2, "0");
     const s = String(secs).padStart(2, "0");
 
-    return days > 0
-      ? `${days}D ${h}:${m}:${s}`
-      : `${h}:${m}:${s}`;
+    return `${days}D ${h}:${m}:${s}`;
   };
 
-  // ==============================
-  // POPUP CONTENT
-  // ==============================
+  // =========================================
+  // POPUP DATA
+  // =========================================
 
   const popupData = {
     watch: {
       eyebrow: "MISSION INFORMATION",
       title: "STARSHIP FLIGHT 14",
+
       content: (
         <>
           <p>
-            Starship Flight 14 is the upcoming flight
-            of SpaceX&apos;s Starship launch system.
+            Starship Flight 14 is the upcoming
+            flight of SpaceX&apos;s Starship
+            launch system.
           </p>
 
           <p>
-            The mission is designed to demonstrate
-            another integrated flight while collecting
-            valuable flight data for future missions.
+            The mission is planned to continue
+            testing the Starship system while
+            collecting valuable flight data.
           </p>
 
           <div className="popup-details">
+
             <div>
               <span>LAUNCH DATE</span>
-              <strong>SEPTEMBER 22, 2026</strong>
+              <strong>
+                SEPTEMBER 22, 2026
+              </strong>
             </div>
 
             <div>
               <span>LAUNCH WINDOW</span>
-              <strong>17:45 – 19:00 IST</strong>
+              <strong>
+                17:45 – 19:00 IST
+              </strong>
             </div>
+
           </div>
         </>
       ),
@@ -136,17 +150,19 @@ function App() {
     explore: {
       eyebrow: "SPACE EXPLORATION",
       title: "SPACE X",
+
       content: (
         <>
           <p>
-            SpaceX designs, manufactures and launches
-            advanced rockets and spacecraft.
+            SpaceX designs, manufactures and
+            launches advanced rockets and
+            spacecraft.
           </p>
 
           <p>
-            Its technologies focus on reusable launch
-            systems and expanding humanity&apos;s access
-            to space.
+            Its technologies focus on reusable
+            launch systems and future human
+            spaceflight.
           </p>
         </>
       ),
@@ -155,6 +171,7 @@ function App() {
     starship: {
       eyebrow: "FULLY REUSABLE SPACECRAFT",
       title: "STARSHIP",
+
       content: (
         <>
           <p>
@@ -164,26 +181,27 @@ function App() {
 
           <p>
             It is designed to carry crew and cargo
-            to Earth orbit and support future missions
-            to the Moon, Mars and beyond.
+            to Earth orbit and support future
+            missions to the Moon, Mars and beyond.
           </p>
         </>
       ),
     },
 
     falcon: {
-      eyebrow: "REUSABLE ROCKET",
+      eyebrow: "WORLD'S LEADING LAUNCH SERVICE",
       title: "FALCON 9",
+
       content: (
         <>
           <p>
-            Falcon 9 is a reusable two-stage rocket
-            designed and manufactured by SpaceX.
+            Falcon 9 is a reusable two-stage
+            rocket developed by SpaceX.
           </p>
 
           <p>
             It is used to launch satellites,
-            spacecraft and crewed missions into orbit.
+            spacecraft and crewed missions.
           </p>
         </>
       ),
@@ -192,11 +210,12 @@ function App() {
     starlink: {
       eyebrow: "HIGH-SPEED INTERNET",
       title: "STARLINK",
+
       content: (
         <>
           <p>
-            Starlink is a satellite internet network
-            developed by SpaceX.
+            Starlink is a satellite internet
+            network developed by SpaceX.
           </p>
 
           <p>
@@ -208,8 +227,9 @@ function App() {
     },
 
     spacexai: {
-      eyebrow: "SPACE COMPUTING",
+      eyebrow: "ADVANCED COMPUTING",
       title: "SPACEXAI",
+
       content: (
         <>
           <p>
@@ -219,9 +239,9 @@ function App() {
           </p>
 
           <p>
-            Future systems may use autonomous software,
-            onboard computation and large-scale
-            data processing.
+            Future systems may combine autonomous
+            software and high-performance
+            computation.
           </p>
         </>
       ),
@@ -230,12 +250,13 @@ function App() {
     terafab: {
       eyebrow: "ADVANCED MANUFACTURING",
       title: "TERAFAB",
+
       content: (
         <>
           <p>
-            TeraFab represents advanced manufacturing
-            infrastructure focused on producing
-            sophisticated technology at scale.
+            Next-generation manufacturing
+            infrastructure can support advanced
+            aerospace technology development.
           </p>
         </>
       ),
@@ -244,17 +265,18 @@ function App() {
     company: {
       eyebrow: "ABOUT SPACEX",
       title: "COMPANY",
+
       content: (
         <>
           <p>
-            SpaceX develops launch vehicles,
-            spacecraft and satellite systems.
+            SpaceX develops rockets, spacecraft
+            and satellite systems.
           </p>
 
           <p>
-            Its programs focus on reducing the cost
-            of access to space and developing
-            next-generation technologies.
+            Its programs focus on developing
+            reusable space transportation
+            technologies.
           </p>
         </>
       ),
@@ -263,29 +285,39 @@ function App() {
     shop: {
       eyebrow: "SPACE X SHOP",
       title: "SHOP",
+
       content: (
         <>
           <p>
-            This area can later be connected to an
-            official shop or your own product showcase.
+            This section can later be connected
+            to an official shop or your own
+            product showcase.
           </p>
         </>
       ),
     },
   };
 
-  // ==============================
-  // OPEN / CLOSE POPUP
-  // ==============================
+  // =========================================
+  // OPEN POPUP
+  // =========================================
 
   const openPopup = (name) => {
     setActivePopup(name);
     setMenuOpen(false);
   };
 
+  // =========================================
+  // CLOSE POPUP
+  // =========================================
+
   const closePopup = () => {
     setActivePopup(null);
   };
+
+  // =========================================
+  // CLOSE MOBILE MENU
+  // =========================================
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -294,19 +326,15 @@ function App() {
   return (
     <div className="site">
 
-      {/* =========================================
+      {/* =====================================
           NAVBAR
-      ========================================= */}
+      ===================================== */}
 
       <header className="navbar">
-
-        {/* LOGO */}
 
         <div className="spacex-logo">
           SPACEX
         </div>
-
-        {/* DESKTOP NAVIGATION */}
 
         <nav className="desktop-nav">
 
@@ -344,8 +372,6 @@ function App() {
 
         </nav>
 
-        {/* UPCOMING LAUNCHES */}
-
         <div className="upcoming-launch">
 
           <span>
@@ -358,8 +384,6 @@ function App() {
 
         </div>
 
-        {/* MOBILE MENU BUTTON */}
-
         <button
           className={`hamburger ${
             menuOpen ? "active" : ""
@@ -367,7 +391,7 @@ function App() {
           onClick={() =>
             setMenuOpen(!menuOpen)
           }
-          aria-label="Open navigation menu"
+          aria-label="Toggle navigation"
         >
           <span></span>
           <span></span>
@@ -376,9 +400,10 @@ function App() {
 
       </header>
 
-      {/* =========================================
-          MOBILE NAVIGATION
-      ========================================= */}
+
+      {/* =====================================
+          MOBILE NAV
+      ===================================== */}
 
       <div
         className={`mobile-nav ${
@@ -444,16 +469,25 @@ function App() {
 
       </div>
 
-      {/* =========================================
-          HERO
-      ========================================= */}
 
-      <section
-        className="hero"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-        }}
-      >
+      {/* =====================================
+          HERO VIDEO
+      ===================================== */}
+
+      <section className="hero">
+
+        <video
+          className="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source
+            src={heroVideo}
+            type="video/mp4"
+          />
+        </video>
 
         <div className="hero-overlay"></div>
 
@@ -469,10 +503,19 @@ function App() {
 
           <button
             className="watch-button"
-            onClick={() => openPopup("watch")}
+            onClick={() =>
+              openPopup("watch")
+            }
           >
-            <span>WATCH</span>
-            <span className="arrow">→</span>
+
+            <span>
+              WATCH
+            </span>
+
+            <span className="arrow">
+              →
+            </span>
+
           </button>
 
         </div>
@@ -483,37 +526,53 @@ function App() {
 
       </section>
 
-      {/* =========================================
-          SECTION 2
-      ========================================= */}
+
+      {/* =====================================
+          MARS
+      ===================================== */}
 
       <section
-        className="light-section"
+        className="multiplanetary-section"
         id="vehicles"
       >
 
-        <div className="center-section-content">
+        <div className="multiplanetary-image">
+
+          <img
+            src={marsImage}
+            alt="Mars"
+          />
+
+        </div>
+
+        <div className="multiplanetary-overlay"></div>
+
+        <div className="multiplanetary-content">
 
           <div className="eyebrow">
             SPACE EXPLORATION
           </div>
 
           <h2>
-            MAKING LIFE
+            MAKING
+            <br />
+            LIFE
             <br />
             MULTIPLANETARY
           </h2>
 
           <p>
-            SpaceX was founded under the belief that
-            a future where humanity is out exploring
-            the stars is fundamentally more exciting
-            than one where we are not.
+            SpaceX was founded under the belief
+            that a future where humanity is out
+            exploring the stars is fundamentally
+            more exciting than one where we are not.
           </p>
 
           <button
-            className="outline-button dark-button"
-            onClick={() => openPopup("explore")}
+            className="outline-button light-button"
+            onClick={() =>
+              openPopup("explore")
+            }
           >
             EXPLORE
             <span>→</span>
@@ -523,18 +582,23 @@ function App() {
 
       </section>
 
-      {/* =========================================
-          STARSHIP SECTION
-      ========================================= */}
+
+      {/* =====================================
+          STARSHIP
+      ===================================== */}
 
       <section
-        className="image-section starship-section"
+        className="visual-section starship-section"
         id="human-spaceflight"
+        style={{
+          backgroundImage:
+            `url(${starshipImage})`,
+        }}
       >
 
-        <div className="image-overlay"></div>
+        <div className="visual-overlay"></div>
 
-        <div className="bottom-content">
+        <div className="starship-content">
 
           <div className="eyebrow">
             REVOLUTIONIZING SPACE TECHNOLOGY
@@ -545,9 +609,12 @@ function App() {
           </h2>
 
           <p>
-            A fully reusable transportation system
-            designed to carry crew and cargo to Earth
-            orbit, the Moon, Mars and beyond.
+            SpaceX&apos;s Starship spacecraft
+            and Super Heavy rocket is a fully
+            reusable transportation system
+            designed to carry both crew and cargo
+            to Earth orbit, the Moon, Mars,
+            and beyond.
           </p>
 
           <button
@@ -564,21 +631,26 @@ function App() {
 
       </section>
 
-      {/* =========================================
+
+      {/* =====================================
           FALCON 9
-      ========================================= */}
+      ===================================== */}
 
       <section
-        className="image-section falcon-section"
+        className="visual-section falcon-section"
         id="starlink"
+        style={{
+          backgroundImage:
+            `url(${falcon9Image})`,
+        }}
       >
 
-        <div className="image-overlay"></div>
+        <div className="visual-overlay falcon-overlay"></div>
 
-        <div className="bottom-content">
+        <div className="falcon-content">
 
           <div className="eyebrow">
-            WORLD'S LEADING LAUNCH SERVICE
+            WORLD&apos;S LEADING LAUNCH SERVICE PROVIDER
           </div>
 
           <h2>
@@ -586,16 +658,19 @@ function App() {
           </h2>
 
           <p>
-            Reliable and reusable launch technology
-            designed to make access to space more
-            affordable.
+            SpaceX leads the world in launches
+            with its reliable, reusable rockets
+            and is developing rapidly reusable
+            systems to transform access to space.
           </p>
 
           <button
             className="outline-button light-button"
-            onClick={() => openPopup("falcon")}
+            onClick={() =>
+              openPopup("falcon")
+            }
           >
-            LEARN MORE
+            RESERVE YOUR RIDE
             <span>→</span>
           </button>
 
@@ -603,18 +678,23 @@ function App() {
 
       </section>
 
-      {/* =========================================
+
+      {/* =====================================
           STARLINK
-      ========================================= */}
+      ===================================== */}
 
       <section
-        className="image-section starlink-section"
+        className="visual-section starlink-section"
         id="starshield"
+        style={{
+          backgroundImage:
+            `url(${starlinkImage})`,
+        }}
       >
 
-        <div className="image-overlay"></div>
+        <div className="visual-overlay starlink-overlay"></div>
 
-        <div className="bottom-content">
+        <div className="starlink-content">
 
           <div className="eyebrow">
             DELIVERING HIGH-SPEED INTERNET
@@ -644,21 +724,26 @@ function App() {
 
       </section>
 
-      {/* =========================================
-          SPACEX AI
-      ========================================= */}
+
+      {/* =====================================
+          SPACEXAI
+      ===================================== */}
 
       <section
-        className="image-section ai-section"
+        className="visual-section spacexai-section"
         id="spacexai"
+        style={{
+          backgroundImage:
+            `url(${spacexaiImage})`,
+        }}
       >
 
-        <div className="image-overlay"></div>
+        <div className="visual-overlay"></div>
 
-        <div className="bottom-content">
+        <div className="spacexai-content">
 
           <div className="eyebrow">
-            SPACE COMPUTING
+            ADVANCED COMPUTING
           </div>
 
           <h2>
@@ -685,16 +770,23 @@ function App() {
 
       </section>
 
-      {/* =========================================
+
+      {/* =====================================
           TERAFAB
-      ========================================= */}
+      ===================================== */}
 
       <section
-        className="info-section light-info"
+        className="visual-section terafab-section"
         id="terafab"
+        style={{
+          backgroundImage:
+            `url(${terafabImage})`,
+        }}
       >
 
-        <div className="info-content">
+        <div className="visual-overlay"></div>
+
+        <div className="terafab-content">
 
           <div className="eyebrow">
             ADVANCED MANUFACTURING
@@ -706,11 +798,12 @@ function App() {
 
           <p>
             Next-generation manufacturing
-            infrastructure for advanced technology.
+            infrastructure for advanced
+            technology.
           </p>
 
           <button
-            className="outline-button dark-button"
+            className="outline-button light-button"
             onClick={() =>
               openPopup("terafab")
             }
@@ -723,9 +816,10 @@ function App() {
 
       </section>
 
-      {/* =========================================
+
+      {/* =====================================
           COMPANY
-      ========================================= */}
+      ===================================== */}
 
       <section
         className="info-section dark-info"
@@ -743,8 +837,9 @@ function App() {
           </h2>
 
           <p>
-            Learn more about SpaceX, its technology,
-            missions and long-term vision.
+            Learn more about SpaceX, its
+            technology, missions and
+            long-term vision.
           </p>
 
           <button
@@ -761,9 +856,10 @@ function App() {
 
       </section>
 
-      {/* =========================================
+
+      {/* =====================================
           SHOP
-      ========================================= */}
+      ===================================== */}
 
       <section
         className="info-section light-info"
@@ -798,9 +894,10 @@ function App() {
 
       </section>
 
-      {/* =========================================
+
+      {/* =====================================
           FOOTER
-      ========================================= */}
+      ===================================== */}
 
       <footer className="footer">
 
@@ -826,9 +923,10 @@ function App() {
 
       </footer>
 
-      {/* =========================================
+
+      {/* =====================================
           POPUP
-      ========================================= */}
+      ===================================== */}
 
       {activePopup && (
         <div
@@ -846,7 +944,7 @@ function App() {
             <button
               className="popup-close"
               onClick={closePopup}
-              aria-label="Close"
+              aria-label="Close popup"
             >
               ×
             </button>

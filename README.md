@@ -10,7 +10,7 @@ The project focuses on building a responsive, immersive frontend with large visu
 
 ## 🌌 Live Demo
 
-🔗 **Live Website:** *http://localhost:3000*
+🔗  **[View Live Website](https://space-x-clone-rouge.vercel.app/)**
 
 ---
 

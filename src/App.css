@@ -10,9 +10,9 @@ html {
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
   background: #000;
   color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
 
@@ -26,8 +26,7 @@ button {
 }
 
 .site {
-  width: 100%;
-  background: #000;
+  min-height: 100vh;
 }
 
 
@@ -37,846 +36,222 @@ button {
 
 .navbar {
   position: fixed;
+
   top: 0;
   left: 0;
 
   width: 100%;
-  height: 80px;
+  height: 78px;
 
   padding: 0 28px;
 
   display: flex;
   align-items: center;
 
-  z-index: 1000;
+  z-index: 2000;
 
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.58),
-    rgba(0, 0, 0, 0)
-  );
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0)
+    );
 }
 
-.spacex-logo {
-  width: 150px;
+
+/* BRAND */
+
+.brand-logo {
+  width: 160px;
+
   flex-shrink: 0;
 
   color: #fff;
 
-  font-size: 24px;
-  font-weight: 700;
+  text-decoration: none;
+
+  font-size: 23px;
+  font-weight: 800;
 
   letter-spacing: 5px;
 }
 
-.desktop-nav {
+
+/* =========================================
+   DESKTOP NAV
+========================================= */
+
+.desktop-navigation {
   display: flex;
   align-items: center;
 
-  gap: 24px;
-
-  margin-left: 24px;
+  gap: 23px;
 
   flex: 1;
-  min-width: 0;
+
+  margin-left: 20px;
 }
 
-.desktop-nav a {
+.nav-item {
+  position: relative;
+}
+
+.nav-item > a,
+.nav-parent {
   position: relative;
 
+  display: inline-flex;
+  align-items: center;
+
   color: #fff;
+
   text-decoration: none;
 
-  font-size: 11px;
+  background: none;
+  border: none;
+
+  padding: 10px 0;
+
+  font-size: 10px;
   font-weight: 700;
+
+  letter-spacing: 0.2px;
 
   white-space: nowrap;
 }
 
-.desktop-nav a:hover {
+.nav-item > a:hover,
+.nav-parent:hover {
+  opacity: 0.65;
+}
+
+.nav-parent.active-link,
+.nav-item > a.active-link {
   opacity: 0.7;
 }
 
-.desktop-nav a::after {
-  content: "";
-
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-
-  width: 0;
-  height: 1px;
-
-  background: #fff;
-
-  transition: width 0.25s ease;
-}
-
-.desktop-nav a:hover::after {
-  width: 100%;
-}
-
-.upcoming-launch {
-  width: 263px;
-  height: 40px;
-
-  flex-shrink: 0;
-
-  margin-left: 18px;
-  padding: 0 15px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 4px;
-
-  background: rgba(40,45,55,0.12);
-}
-
-.upcoming-launch span {
-  color: #d7d7d7;
-
-  font-size: 9px;
-  font-weight: 700;
-
-  letter-spacing: 0.65px;
-}
-
-.upcoming-launch strong {
-  color: #d7d7d7;
-
-  font-size: 10px;
-  font-weight: 500;
-
-  letter-spacing: 0.7px;
-}
-
 
 /* =========================================
-   HERO VIDEO
+   DROPDOWN
 ========================================= */
 
-.hero {
-  position: relative;
-
-  width: 100%;
-  height: 100vh;
-
-  min-height: 650px;
-
-  overflow: hidden;
-
-  background: #000;
-}
-
-.hero-video {
-  position: absolute;
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-  object-position: center;
-
-  z-index: 0;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-
-  z-index: 1;
-
-  background: linear-gradient(
-    to bottom,
-    rgba(10,15,20,0.25) 0%,
-    rgba(10,15,20,0.02) 40%,
-    rgba(0,0,0,0.22) 65%,
-    rgba(0,0,0,0.96) 100%
-  );
-}
-
-.hero-content {
+.dropdown-menu {
   position: absolute;
 
-  left: 48px;
-  bottom: 74px;
+  top: 100%;
+  left: -18px;
 
-  z-index: 3;
-}
+  min-width: 205px;
 
-.hero-countdown {
-  margin-bottom: 5px;
+  padding: 10px 0;
 
-  color: #eee;
-
-  font-size: 16px;
-  font-weight: 500;
-
-  letter-spacing: 1px;
-}
-
-.hero h1 {
-  margin: 0;
-
-  color: #fff;
-
-  font-size:
-    clamp(42px, 5vw, 60px);
-
-  line-height: 1;
-
-  font-weight: 800;
-
-  letter-spacing: -2px;
-}
-
-.watch-button {
-  margin-top: 47px;
-
-  width: 103px;
-  height: 50px;
-
-  padding: 0 14px 0 19px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  background: rgba(10,10,10,0.40);
-
-  border: 1px solid rgba(255,255,255,0.48);
-
-  color: #fff;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  transition: 0.25s ease;
-}
-
-.watch-button:hover {
-  background: #fff;
-  color: #000;
-}
-
-.watch-button .arrow {
-  font-size: 20px;
-
-  transition: transform 0.25s ease;
-}
-
-.watch-button:hover .arrow {
-  transform: translateX(5px);
-}
-
-.scroll-indicator {
-  position: absolute;
-
-  left: 50%;
-  bottom: 22px;
-
-  transform: translateX(-50%);
-
-  z-index: 3;
-}
-
-.scroll-indicator span {
-  display: block;
-
-  width: 1px;
-  height: 27px;
-
-  background: rgba(255,255,255,0.65);
-
-  animation: scrollAnimation 1.6s infinite;
-}
-
-@keyframes scrollAnimation {
-  0% {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-
-  40% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(7px);
-  }
-}
-
-
-/* =========================================
-   MARS
-========================================= */
-
-.multiplanetary-section {
-  position: relative;
-
-  width: 100%;
-  height: 100vh;
-
-  min-height: 650px;
-
-  overflow: hidden;
-
-  background: #000;
-}
-
-.multiplanetary-image {
-  position: absolute;
-
-  top: 0;
-  right: 0;
-
-  width: 67%;
-  height: 100%;
-
-  z-index: 1;
-}
-
-.multiplanetary-image img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-  object-position: center;
-}
-
-.multiplanetary-overlay {
-  position: absolute;
-  inset: 0;
-
-  z-index: 2;
-
-  background: linear-gradient(
-    to right,
-    #000 0%,
-    #000 16%,
-    rgba(0,0,0,0.97) 28%,
-    rgba(0,0,0,0.78) 40%,
-    rgba(0,0,0,0.22) 64%,
-    rgba(0,0,0,0) 100%
-  );
-}
-
-.multiplanetary-content {
-  position: absolute;
-
-  left: 7%;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  width: 43%;
-
-  z-index: 3;
-}
-
-.multiplanetary-content h2 {
-  margin: 0 0 28px;
-
-  color: #fff;
-
-  font-size:
-    clamp(48px,5.5vw,78px);
-
-  line-height: 0.88;
-
-  font-weight: 800;
-
-  letter-spacing: -3px;
-}
-
-.multiplanetary-content p {
-  width: 390px;
-  max-width: 100%;
-
-  margin-bottom: 30px;
-
-  color: rgba(255,255,255,0.85);
-
-  font-size: 14px;
-
-  line-height: 1.55;
-}
-
-
-/* =========================================
-   SHARED VISUAL SECTIONS
-========================================= */
-
-.visual-section {
-  position: relative;
-
-  min-height: 100vh;
-
-  overflow: hidden;
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.visual-overlay {
-  position: absolute;
-  inset: 0;
-
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.03),
-    rgba(0,0,0,0.10) 35%,
-    rgba(0,0,0,0.86) 100%
-  );
-}
-
-
-/* =========================================
-   STARSHIP
-========================================= */
-
-.starship-content {
-  position: absolute;
-
-  top: 50%;
-  right: 8%;
-
-  transform: translateY(-50%);
-
-  width: 38%;
-
-  z-index: 2;
-}
-
-.starship-content h2 {
-  margin-bottom: 20px;
-
-  font-size:
-    clamp(45px,6vw,80px);
-
-  line-height: 0.95;
-
-  font-weight: 800;
-
-  letter-spacing: -3px;
-}
-
-.starship-content p {
-  max-width: 500px;
-
-  margin-bottom: 28px;
-
-  color: rgba(255,255,255,0.82);
-
-  font-size: 15px;
-
-  line-height: 1.65;
-}
-
-
-/* =========================================
-   FALCON 9
-========================================= */
-
-.falcon-overlay {
-  background: linear-gradient(
-    to right,
-    rgba(0,0,0,0.78),
-    rgba(0,0,0,0.20) 55%,
-    rgba(0,0,0,0.08)
-  );
-}
-
-.falcon-content {
-  position: absolute;
-
-  top: 50%;
-  left: 7%;
-
-  transform: translateY(-50%);
-
-  width: 36%;
-
-  z-index: 2;
-}
-
-.falcon-content h2 {
-  margin-bottom: 20px;
-
-  font-size:
-    clamp(45px,6vw,80px);
-
-  line-height: 0.95;
-
-  font-weight: 800;
-
-  letter-spacing: -3px;
-}
-
-.falcon-content p {
-  max-width: 500px;
-
-  margin-bottom: 30px;
-
-  color: rgba(255,255,255,0.86);
-
-  font-size: 15px;
-
-  line-height: 1.6;
-}
-
-
-/* =========================================
-   STARLINK
-========================================= */
-
-.starlink-overlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.08),
-    rgba(0,0,0,0.15) 42%,
-    rgba(0,0,0,0.94) 100%
-  );
-}
-
-.starlink-content {
-  position: absolute;
-
-  left: 3.5%;
-  bottom: 10%;
-
-  width: 50%;
-
-  z-index: 2;
-}
-
-.starlink-content h2 {
-  margin-bottom: 16px;
-
-  font-size:
-    clamp(55px,7vw,90px);
-
-  line-height: 0.9;
-
-  font-weight: 800;
-
-  letter-spacing: -4px;
-}
-
-.starlink-content p {
-  max-width: 650px;
-
-  margin-bottom: 30px;
-
-  color: rgba(255,255,255,0.90);
-
-  font-size: 16px;
-
-  line-height: 1.5;
-}
-
-
-/* =========================================
-   SPACEXAI
-========================================= */
-
-.spacexai-section {
-  background-position: center;
-}
-
-.spacexai-content {
-  position: absolute;
-
-  left: 7%;
-  bottom: 12%;
-
-  width: 45%;
-
-  z-index: 2;
-}
-
-.spacexai-content h2 {
-  margin-bottom: 20px;
-
-  font-size:
-    clamp(55px,7vw,90px);
-
-  line-height: 0.9;
-
-  font-weight: 800;
-
-  letter-spacing: -4px;
-}
-
-.spacexai-content p {
-  max-width: 500px;
-
-  margin-bottom: 30px;
-
-  color: rgba(255,255,255,0.85);
-
-  line-height: 1.6;
-
-  font-size: 15px;
-}
-
-
-/* =========================================
-   TERAFAB
-========================================= */
-
-.terafab-section {
-  background-position: center;
-}
-
-.terafab-content {
-  position: absolute;
-
-  right: 7%;
-  bottom: 14%;
-
-  width: 40%;
-
-  z-index: 2;
-}
-
-.terafab-content h2 {
-  margin-bottom: 20px;
-
-  font-size:
-    clamp(55px,7vw,90px);
-
-  line-height: 0.9;
-
-  font-weight: 800;
-
-  letter-spacing: -4px;
-}
-
-.terafab-content p {
-  max-width: 500px;
-
-  margin-bottom: 30px;
-
-  color: rgba(255,255,255,0.85);
-
-  line-height: 1.6;
-
-  font-size: 15px;
-}
-
-
-/* =========================================
-   EYEBROW
-========================================= */
-
-.eyebrow {
-  margin-bottom: 18px;
-
-  color: #fff;
-
-  font-size: 12px;
-
-  font-weight: 700;
-
-  letter-spacing: 2.7px;
-
-  opacity: 0.85;
-}
-
-
-/* =========================================
-   BUTTONS
-========================================= */
-
-.outline-button {
-  min-width: 125px;
-
-  min-height: 48px;
-
-  padding: 0 19px;
-
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 18px;
-
-  background: transparent;
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  transition: 0.25s ease;
-}
-
-.outline-button span {
-  font-size: 18px;
-}
-
-.light-button {
-  color: #fff;
+  background:
+    rgba(10, 10, 10, 0.98);
 
   border:
     1px solid
-    rgba(255,255,255,0.55);
-}
-
-.light-button:hover {
-  color: #000;
-
-  background: #fff;
-}
-
-.dark-button {
-  color: #111;
-
-  border: 1px solid #111;
-}
-
-.dark-button:hover {
-  color: #fff;
-
-  background: #111;
-}
-
-
-/* =========================================
-   INFO SECTIONS
-========================================= */
-
-.info-section {
-  min-height: 70vh;
-
-  padding: 90px 25px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-}
-
-.light-info {
-  background: #f4f4f4;
-  color: #111;
-}
-
-.dark-info {
-  background: #080808;
-  color: #fff;
-}
-
-.info-content {
-  width: 100%;
-  max-width: 680px;
-}
-
-.info-content h2 {
-  margin-bottom: 25px;
-
-  font-size:
-    clamp(50px,8vw,90px);
-
-  line-height: 0.95;
-
-  letter-spacing: -3px;
-}
-
-.info-content p {
-  max-width: 600px;
-
-  margin: 0 auto 30px;
-
-  font-size: 16px;
-
-  line-height: 1.7;
-}
-
-.light-info .info-content p {
-  color: #666;
-}
-
-.dark-info .info-content p {
-  color: #aaa;
-}
-
-
-/* =========================================
-   FOOTER
-========================================= */
-
-.footer {
-  min-height: 190px;
-
-  padding: 50px 20px;
+    rgba(255,255,255,0.16);
 
   display: flex;
 
   flex-direction: column;
 
-  align-items: center;
-  justify-content: center;
+  opacity: 0;
 
-  gap: 24px;
+  visibility: hidden;
 
-  text-align: center;
+  transform:
+    translateY(8px);
 
-  background: #000;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
 }
 
-.footer-logo {
-  color: #fff;
+.nav-item:hover .dropdown-menu {
+  opacity: 1;
 
-  font-size: 21px;
+  visibility: visible;
 
-  font-weight: 700;
-
-  letter-spacing: 5px;
+  transform:
+    translateY(0);
 }
 
-.footer-links {
-  display: flex;
+.dropdown-menu a {
+  display: block;
 
-  gap: 30px;
-}
+  padding: 13px 18px;
 
-.footer-links a {
-  color: #777;
+  color: #ddd;
 
   text-decoration: none;
 
   font-size: 10px;
 
-  font-weight: 600;
+  font-weight: 700;
+
+  letter-spacing: 0.6px;
 }
 
-.footer-links a:hover {
-  color: #fff;
-}
+.dropdown-menu a:hover,
+.dropdown-menu a.dropdown-active {
+  background: #fff;
 
-.footer-copy {
-  color: #555;
-
-  font-size: 9px;
-
-  letter-spacing: 0.5px;
+  color: #000;
 }
 
 
 /* =========================================
-   HAMBURGER
+   UPCOMING
+========================================= */
+
+.upcoming-launch {
+  flex-shrink: 0;
+
+  width: 245px;
+  height: 39px;
+
+  padding: 0 13px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.35);
+
+  border-radius: 4px;
+
+  background:
+    rgba(30,30,35,0.15);
+}
+
+.upcoming-launch span {
+  color: #ccc;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.7px;
+}
+
+.upcoming-launch strong {
+  color: #ccc;
+
+  font-size: 10px;
+
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   MOBILE HAMBURGER
 ========================================= */
 
 .hamburger {
@@ -889,7 +264,7 @@ button {
 
   padding: 0;
 
-  border: 0;
+  border: none;
 
   background: transparent;
 
@@ -899,8 +274,6 @@ button {
   justify-content: center;
 
   gap: 5px;
-
-  z-index: 1200;
 }
 
 .hamburger span {
@@ -909,9 +282,7 @@ button {
 
   background: #fff;
 
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease;
+  transition: 0.25s ease;
 }
 
 .hamburger.active span:nth-child(1) {
@@ -935,38 +306,697 @@ button {
    MOBILE NAV
 ========================================= */
 
-.mobile-nav {
+.mobile-navigation {
   position: fixed;
 
   inset: 0;
 
-  padding: 110px 35px 40px;
+  z-index: 1900;
 
-  background: rgba(0,0,0,0.97);
+  padding:
+    100px 28px 40px;
 
-  z-index: 1100;
+  background:
+    rgba(0,0,0,0.98);
 
-  display: none;
-
-  flex-direction: column;
-
-  gap: 28px;
+  overflow-y: auto;
 }
 
-.mobile-nav.show {
-  display: flex;
-}
+.mobile-navigation > a {
+  display: block;
 
-.mobile-nav a {
+  margin-bottom: 25px;
+
   color: #fff;
 
   text-decoration: none;
 
-  font-size: 15px;
+  font-size: 14px;
 
   font-weight: 700;
 
   letter-spacing: 1px;
+}
+
+.mobile-nav-group {
+  margin-bottom: 25px;
+}
+
+.mobile-nav-title {
+  margin-bottom: 13px;
+
+  color: #fff;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.mobile-submenu {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  padding-left: 15px;
+
+  border-left:
+    1px solid
+    rgba(255,255,255,0.22);
+}
+
+.mobile-submenu a {
+  color: #aaa;
+
+  text-decoration: none;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.8px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  min-height: 650px;
+
+  overflow: hidden;
+
+  background: #000;
+}
+
+.hero-video {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.18),
+      rgba(0,0,0,0.03) 40%,
+      rgba(0,0,0,0.25) 65%,
+      rgba(0,0,0,0.97) 100%
+    );
+}
+
+.hero-content {
+  position: absolute;
+
+  left: 48px;
+  bottom: 73px;
+
+  z-index: 3;
+}
+
+.hero-time {
+  margin-bottom: 5px;
+
+  color: #eee;
+
+  font-size: 16px;
+
+  letter-spacing: 1px;
+}
+
+.hero h1 {
+  margin: 0;
+
+  font-size:
+    clamp(42px,5vw,60px);
+
+  line-height: 1;
+
+  letter-spacing: -2px;
+
+  font-weight: 800;
+}
+
+.hero-button {
+  margin-top: 45px;
+
+  width: 105px;
+  height: 49px;
+
+  padding: 0 14px 0 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  color: #fff;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.5);
+
+  background:
+    rgba(0,0,0,0.35);
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  transition: 0.25s ease;
+}
+
+.hero-button span {
+  font-size: 20px;
+
+  transition: 0.25s ease;
+}
+
+.hero-button:hover {
+  background: #fff;
+
+  color: #000;
+}
+
+.hero-button:hover span {
+  transform: translateX(5px);
+}
+
+.scroll-line {
+  position: absolute;
+
+  left: 50%;
+  bottom: 22px;
+
+  width: 1px;
+  height: 28px;
+
+  z-index: 3;
+
+  background:
+    rgba(255,255,255,0.6);
+
+  animation:
+    scrollMove 1.5s infinite;
+}
+
+@keyframes scrollMove {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(-6px);
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(8px);
+  }
+}
+
+
+/* =========================================
+   MARS SECTION
+========================================= */
+
+.mars-section {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  min-height: 650px;
+
+  overflow: hidden;
+
+  background: #000;
+}
+
+.mars-image {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  width: 68%;
+  height: 100%;
+}
+
+.mars-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.mars-gradient {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to right,
+      #000 0%,
+      #000 15%,
+      rgba(0,0,0,0.98) 27%,
+      rgba(0,0,0,0.75) 40%,
+      rgba(0,0,0,0.18) 67%,
+      rgba(0,0,0,0) 100%
+    );
+}
+
+.mars-content {
+  position: absolute;
+
+  left: 7%;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  width: 43%;
+
+  z-index: 2;
+}
+
+.section-eyebrow {
+  margin-bottom: 17px;
+
+  color: rgba(255,255,255,0.82);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 2.5px;
+}
+
+.mars-content h2 {
+  margin-bottom: 28px;
+
+  color: #fff;
+
+  font-size:
+    clamp(48px,5.5vw,78px);
+
+  line-height: 0.88;
+
+  letter-spacing: -3px;
+
+  font-weight: 800;
+}
+
+.mars-content p {
+  width: 390px;
+
+  max-width: 100%;
+
+  margin-bottom: 30px;
+
+  color: rgba(255,255,255,0.85);
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   VISUAL SECTIONS
+========================================= */
+
+.visual-section {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  min-height: 650px;
+
+  overflow: hidden;
+
+  background-size: cover;
+
+  background-position: center;
+
+  background-repeat: no-repeat;
+}
+
+.visual-gradient {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.02),
+      rgba(0,0,0,0.1) 40%,
+      rgba(0,0,0,0.92) 100%
+    );
+}
+
+
+/* =========================================
+   STARSHIP
+========================================= */
+
+.right-content {
+  position: absolute;
+
+  right: 7%;
+
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  width: 38%;
+
+  z-index: 2;
+}
+
+.right-content h2 {
+  margin-bottom: 20px;
+
+  font-size:
+    clamp(48px,6vw,82px);
+
+  line-height: 0.9;
+
+  letter-spacing: -3px;
+
+  font-weight: 800;
+}
+
+.right-content p {
+  max-width: 500px;
+
+  margin-bottom: 28px;
+
+  color: rgba(255,255,255,0.84);
+
+  font-size: 15px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================
+   FALCON
+========================================= */
+
+.falcon-gradient {
+  background:
+    linear-gradient(
+      to right,
+      rgba(0,0,0,0.78),
+      rgba(0,0,0,0.18) 58%,
+      rgba(0,0,0,0.05)
+    );
+}
+
+.left-content {
+  position: absolute;
+
+  left: 7%;
+
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  width: 38%;
+
+  z-index: 2;
+}
+
+.left-content h2 {
+  margin-bottom: 20px;
+
+  font-size:
+    clamp(48px,6vw,82px);
+
+  line-height: 0.9;
+
+  letter-spacing: -3px;
+
+  font-weight: 800;
+}
+
+.left-content p {
+  max-width: 500px;
+
+  margin-bottom: 30px;
+
+  color: rgba(255,255,255,0.85);
+
+  font-size: 15px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   STARLINK
+========================================= */
+
+.bottom-left-content {
+  position: absolute;
+
+  left: 4%;
+
+  bottom: 10%;
+
+  width: 50%;
+
+  z-index: 2;
+}
+
+.bottom-left-content h2 {
+  margin-bottom: 17px;
+
+  font-size:
+    clamp(55px,7vw,92px);
+
+  line-height: 0.9;
+
+  letter-spacing: -4px;
+
+  font-weight: 800;
+}
+
+.bottom-left-content p {
+  max-width: 600px;
+
+  margin-bottom: 30px;
+
+  color: rgba(255,255,255,0.88);
+
+  font-size: 16px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================
+   AI / TERAFAB
+========================================= */
+
+.spacexai-content,
+.terafab-content {
+  position: absolute;
+
+  bottom: 12%;
+
+  z-index: 2;
+
+  width: 42%;
+}
+
+.spacexai-content {
+  left: 7%;
+}
+
+.terafab-content {
+  right: 7%;
+}
+
+.spacexai-content h2,
+.terafab-content h2 {
+  margin-bottom: 20px;
+
+  font-size:
+    clamp(55px,7vw,90px);
+
+  line-height: 0.9;
+
+  letter-spacing: -4px;
+}
+
+.spacexai-content p,
+.terafab-content p {
+  max-width: 500px;
+
+  margin-bottom: 30px;
+
+  color: rgba(255,255,255,0.86);
+
+  font-size: 15px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   OUTLINE BUTTON
+========================================= */
+
+.outline-button {
+  min-width: 125px;
+
+  min-height: 48px;
+
+  padding: 0 18px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 18px;
+
+  background: transparent;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.55);
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  transition: 0.25s ease;
+}
+
+.outline-button span {
+  font-size: 18px;
+}
+
+.outline-button:hover {
+  color: #000;
+
+  background: #fff;
+}
+
+
+/* =========================================
+   GENERIC ROUTE PAGE
+========================================= */
+
+.generic-page {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  padding:
+    150px 7% 90px;
+
+  display: flex;
+
+  align-items: center;
+
+  background-color: #050505;
+
+  background-size: cover;
+
+  background-position: center;
+
+  background-repeat: no-repeat;
+}
+
+.generic-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to right,
+      rgba(0,0,0,0.9),
+      rgba(0,0,0,0.35),
+      rgba(0,0,0,0.2)
+    );
+}
+
+.generic-content {
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 650px;
+}
+
+.generic-content h1 {
+  margin-bottom: 25px;
+
+  font-size:
+    clamp(55px,8vw,100px);
+
+  line-height: 0.9;
+
+  letter-spacing: -4px;
+
+  font-weight: 800;
+}
+
+.generic-content p {
+  max-width: 560px;
+
+  margin-bottom: 30px;
+
+  color: rgba(255,255,255,0.84);
+
+  font-size: 16px;
+
+  line-height: 1.7;
 }
 
 
@@ -979,26 +1009,30 @@ button {
 
   inset: 0;
 
-  z-index: 3000;
+  z-index: 4000;
+
+  padding: 25px;
 
   display: flex;
 
   align-items: center;
   justify-content: center;
 
-  padding: 25px;
+  background:
+    rgba(0,0,0,0.82);
 
-  background: rgba(0,0,0,0.80);
+  backdrop-filter:
+    blur(8px);
 
-  backdrop-filter: blur(8px);
-
-  animation: popupFade 0.25s ease;
+  animation:
+    popupFade 0.25s ease;
 }
 
 .popup {
   position: relative;
 
-  width: min(720px,100%);
+  width:
+    min(720px,100%);
 
   max-height: 85vh;
 
@@ -1023,31 +1057,27 @@ button {
 .popup-close {
   position: absolute;
 
+  right: 18px;
   top: 18px;
-  right: 20px;
 
   width: 38px;
   height: 38px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border:
-    1px solid
-    rgba(255,255,255,0.25);
 
   background: transparent;
 
   color: #fff;
 
+  border:
+    1px solid
+    rgba(255,255,255,0.22);
+
   font-size: 25px;
 }
 
 .popup-close:hover {
-  background: #fff;
   color: #000;
+
+  background: #fff;
 }
 
 .popup-eyebrow {
@@ -1063,16 +1093,10 @@ button {
 }
 
 .popup h2 {
-  margin: 0;
-
-  color: #fff;
-
   font-size:
     clamp(38px,6vw,64px);
 
   line-height: 0.95;
-
-  font-weight: 800;
 
   letter-spacing: -2px;
 }
@@ -1087,7 +1111,7 @@ button {
     rgba(255,255,255,0.18);
 }
 
-.popup-content {
+.popup p {
   color: #ccc;
 
   font-size: 15px;
@@ -1095,85 +1119,31 @@ button {
   line-height: 1.8;
 }
 
-.popup-content p {
-  margin-bottom: 18px;
-}
-
-.popup-details {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap: 14px;
-
-  margin-top: 25px;
-}
-
-.popup-details > div {
-  padding: 18px;
-
-  border:
-    1px solid
-    rgba(255,255,255,0.15);
-
-  background:
-    rgba(255,255,255,0.03);
-}
-
-.popup-details span {
-  display: block;
-
-  margin-bottom: 7px;
-
-  color: #777;
-
-  font-size: 9px;
-
-  font-weight: 700;
-
-  letter-spacing: 1.5px;
-}
-
-.popup-details strong {
-  display: block;
-
-  color: #eee;
-
-  font-size: 11px;
-}
-
-.popup-close-button {
-  margin-top: 25px;
-
-  min-width: 110px;
+.popup-button {
+  margin-top: 28px;
 
   height: 46px;
 
   padding: 0 22px;
 
-  border:
-    1px solid
-    rgba(255,255,255,0.45);
+  color: #fff;
 
   background: transparent;
 
-  color: #fff;
+  border:
+    1px solid
+    rgba(255,255,255,0.45);
 
   font-size: 10px;
 
   font-weight: 700;
 }
 
-.popup-close-button:hover {
+.popup-button:hover {
   background: #fff;
+
   color: #000;
 }
-
-
-/* =========================================
-   POPUP ANIMATION
-========================================= */
 
 @keyframes popupFade {
   from {
@@ -1190,7 +1160,7 @@ button {
     opacity: 0;
 
     transform:
-      translateY(25px)
+      translateY(20px)
       scale(0.97);
   }
 
@@ -1205,22 +1175,84 @@ button {
 
 
 /* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+  min-height: 180px;
+
+  padding: 45px 20px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 23px;
+
+  text-align: center;
+
+  background: #000;
+}
+
+.footer-logo {
+  font-size: 21px;
+
+  font-weight: 800;
+
+  letter-spacing: 5px;
+}
+
+.footer-links {
+  display: flex;
+
+  gap: 28px;
+}
+
+.footer-links a {
+  color: #777;
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.footer-copy {
+  color: #555;
+
+  font-size: 9px;
+
+  letter-spacing: 0.6px;
+}
+
+
+/* =========================================
    TABLET
 ========================================= */
 
 @media (max-width: 1200px) {
 
-  .desktop-nav {
+  .desktop-navigation {
     gap: 15px;
   }
 
-  .desktop-nav a {
+  .nav-item > a,
+  .nav-parent {
     font-size: 9px;
   }
 
   .upcoming-launch {
-    width: 220px;
+    width: 215px;
   }
+
 }
 
 
@@ -1230,7 +1262,7 @@ button {
 
 @media (max-width: 950px) {
 
-  .desktop-nav,
+  .desktop-navigation,
   .upcoming-launch {
     display: none;
   }
@@ -1239,8 +1271,31 @@ button {
     display: flex;
   }
 
-  .starship-content,
-  .falcon-content {
+  .brand-logo {
+    width: auto;
+    font-size: 21px;
+  }
+
+  .hero-content {
+    left: 24px;
+    bottom: 58px;
+  }
+
+  .mars-image {
+    width: 100%;
+  }
+
+  .mars-gradient {
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08),
+        rgba(0,0,0,0.55) 50%,
+        #000 100%
+      );
+  }
+
+  .mars-content {
     left: 25px;
     right: 25px;
 
@@ -1252,7 +1307,20 @@ button {
     transform: none;
   }
 
-  .starlink-content {
+  .right-content,
+  .left-content {
+    left: 25px;
+    right: 25px;
+
+    width: auto;
+
+    top: auto;
+    bottom: 55px;
+
+    transform: none;
+  }
+
+  .bottom-left-content {
     left: 25px;
     right: 25px;
 
@@ -1261,15 +1329,7 @@ button {
     bottom: 55px;
   }
 
-  .spacexai-content {
-    left: 25px;
-    right: 25px;
-
-    width: auto;
-
-    bottom: 55px;
-  }
-
+  .spacexai-content,
   .terafab-content {
     left: 25px;
     right: 25px;
@@ -1278,70 +1338,17 @@ button {
 
     bottom: 55px;
   }
+
+  .generic-page {
+    padding:
+      130px 25px 60px;
+  }
+
 }
 
 
 /* =========================================
-   MOBILE SMALL
-========================================= */
-
-@media (max-width: 800px) {
-
-  .multiplanetary-section {
-    min-height: 760px;
-  }
-
-  .multiplanetary-image {
-    width: 100%;
-  }
-
-  .multiplanetary-overlay {
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.08),
-        rgba(0,0,0,0.60) 48%,
-        #000 100%
-      );
-  }
-
-  .multiplanetary-content {
-    left: 25px;
-    right: 25px;
-
-    width: auto;
-
-    top: auto;
-    bottom: 55px;
-
-    transform: none;
-  }
-
-  .multiplanetary-content h2 {
-    font-size: 48px;
-
-    letter-spacing: -2px;
-  }
-
-  .multiplanetary-content p {
-    width: auto;
-  }
-
-  .starship-content h2,
-  .falcon-content h2,
-  .spacexai-content h2,
-  .terafab-content h2 {
-    font-size: 52px;
-  }
-
-  .starlink-content h2 {
-    font-size: 58px;
-  }
-}
-
-
-/* =========================================
-   VERY SMALL MOBILE
+   SMALL MOBILE
 ========================================= */
 
 @media (max-width: 600px) {
@@ -1349,13 +1356,12 @@ button {
   .navbar {
     height: 70px;
 
-    padding: 0 20px;
+    padding:
+      0 20px;
   }
 
-  .spacex-logo {
-    width: auto;
-
-    font-size: 21px;
+  .brand-logo {
+    font-size: 19px;
 
     letter-spacing: 4px;
   }
@@ -1364,21 +1370,27 @@ button {
     min-height: 620px;
   }
 
-  .hero-content {
-    left: 22px;
-    right: 20px;
-
-    bottom: 58px;
+  .hero h1 {
+    font-size: 36px;
   }
 
-  .hero-countdown {
+  .hero-time {
     font-size: 14px;
   }
 
-  .hero h1 {
-    font-size: 36px;
+  .mars-content h2,
+  .right-content h2,
+  .left-content h2 {
+    font-size: 48px;
+  }
 
-    letter-spacing: -1.5px;
+  .bottom-left-content h2 {
+    font-size: 56px;
+  }
+
+  .spacexai-content h2,
+  .terafab-content h2 {
+    font-size: 55px;
   }
 
   .popup {
@@ -1390,11 +1402,13 @@ button {
     font-size: 40px;
   }
 
-  .popup-content {
+  .popup p {
     font-size: 14px;
   }
 
-  .popup-details {
-    grid-template-columns: 1fr;
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
   }
+
 }

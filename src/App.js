@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
+
 import "./App.css";
 
-import heroVideo from "./videos/hero.mp4";
-
+// Images
 import marsImage from "./images/mars.jpg";
 import starshipImage from "./images/starship.webp";
 import falcon9Image from "./images/falcon9.jpg";
@@ -10,388 +17,324 @@ import starlinkImage from "./images/starlink.jpg";
 import spacexaiImage from "./images/spacexai.webp";
 import terafabImage from "./images/terafab.png";
 
-function App() {
-  // =========================================
-  // COUNTDOWN
-  // =========================================
+// Video
+import heroVideo from "./videos/hero.mp4";
 
-  const [heroCountdown, setHeroCountdown] = useState(
+
+// =====================================================
+// NAVIGATION DATA
+// =====================================================
+
+const navigation = [
+  {
+    label: "VEHICLES",
+    dropdown: [
+      {
+        label: "STARSHIP",
+        path: "/vehicles/starship",
+      },
+      {
+        label: "DRAGON",
+        path: "/vehicles/dragon",
+      },
+      {
+        label: "FALCON 9",
+        path: "/vehicles/falcon-9",
+      },
+      {
+        label: "FALCON HEAVY",
+        path: "/vehicles/falcon-heavy",
+      },
+    ],
+  },
+
+  {
+    label: "HUMAN SPACEFLIGHT",
+    dropdown: [
+      {
+        label: "OVERVIEW",
+        path: "/human-spaceflight",
+      },
+      {
+        label: "SPACE STATION",
+        path: "/human-spaceflight/space-station",
+      },
+      {
+        label: "EARTH ORBIT",
+        path: "/human-spaceflight/earth-orbit",
+      },
+      {
+        label: "THE MOON",
+        path: "/human-spaceflight/moon",
+      },
+      {
+        label: "MARS & BEYOND",
+        path: "/human-spaceflight/mars-beyond",
+      },
+    ],
+  },
+
+  {
+    label: "STARLINK",
+    path: "/starlink",
+  },
+
+  {
+    label: "STARSHIELD",
+    path: "/starshield",
+  },
+
+  {
+    label: "BRAHMAND AI",
+    dropdown: [
+      {
+        label: "BRAHMAND MIND",
+        path: "/brahmand-ai/mind",
+      },
+      {
+        label: "GROK",
+        path: "/brahmand-ai/grok",
+      },
+      {
+        label: "GROKIPEDIA",
+        path: "/brahmand-ai/grokipedia",
+      },
+      {
+        label: "X",
+        path: "/brahmand-ai/x",
+      },
+    ],
+  },
+
+  {
+    label: "TERAFAB",
+    path: "/terafab",
+  },
+
+  {
+    label: "COMPANY",
+    dropdown: [
+      {
+        label: "MISSION",
+        path: "/company/mission",
+      },
+      {
+        label: "CAREERS",
+        path: "/company/careers",
+      },
+      {
+        label: "SITES",
+        path: "/company/sites",
+      },
+      {
+        label: "UPDATES",
+        path: "/company/updates",
+      },
+      {
+        label: "CONTENT",
+        path: "/company/content",
+      },
+      {
+        label: "INVESTORS",
+        path: "/company/investors",
+      },
+    ],
+  },
+
+  {
+    label: "SHOP",
+    dropdown: [
+      {
+        label: "BRAHMAND",
+        path: "/shop/brahmand",
+      },
+      {
+        label: "BRAHMAND AI",
+        path: "/shop/brahmand-ai",
+      },
+    ],
+  },
+];
+
+
+// =====================================================
+// COUNTDOWN
+// =====================================================
+
+function Countdown() {
+  const [time, setTime] = useState(
     5 * 24 * 60 * 60 +
       19 * 60 * 60 +
       55 * 60 +
       58
   );
 
-  const [topCountdown, setTopCountdown] = useState(
-    8 * 60 * 60 +
-      4 * 60 +
-      58
-  );
-
-  // =========================================
-  // POPUP
-  // =========================================
-
-  const [activePopup, setActivePopup] = useState(null);
-
-  // =========================================
-  // MOBILE MENU
-  // =========================================
-
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  // =========================================
-  // COUNTDOWN TIMER
-  // =========================================
-
   useEffect(() => {
     const timer = setInterval(() => {
-      setHeroCountdown((prev) =>
-        prev > 0 ? prev - 1 : 0
-      );
-
-      setTopCountdown((prev) =>
-        prev > 0 ? prev - 1 : 0
+      setTime((previous) =>
+        previous > 0 ? previous - 1 : 0
       );
     }, 1000);
 
     return () => clearInterval(timer);
   }, []);
 
-  // =========================================
-  // ESC TO CLOSE POPUP
-  // =========================================
+  const days = Math.floor(time / 86400);
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setActivePopup(null);
-      }
-    };
+  const hours = Math.floor(
+    (time % 86400) / 3600
+  );
 
-    document.addEventListener("keydown", handleKeyDown);
+  const minutes = Math.floor(
+    (time % 3600) / 60
+  );
 
-    return () => {
-      document.removeEventListener(
-        "keydown",
-        handleKeyDown
+  const seconds = time % 60;
+
+  const h = String(hours).padStart(2, "0");
+  const m = String(minutes).padStart(2, "0");
+  const s = String(seconds).padStart(2, "0");
+
+  return `${days}D ${h}:${m}:${s}`;
+}
+
+
+// =====================================================
+// NAVBAR
+// =====================================================
+
+function Navbar() {
+  const location = useLocation();
+
+  const [mobileOpen, setMobileOpen] =
+    useState(false);
+
+  const isActive = (item) => {
+    if (item.path) {
+      return location.pathname === item.path;
+    }
+
+    if (item.dropdown) {
+      return item.dropdown.some(
+        (child) =>
+          location.pathname === child.path
       );
-    };
-  }, []);
+    }
 
-  // =========================================
-  // FORMAT COUNTDOWN
-  // =========================================
-
-  const formatTime = (seconds) => {
-    const days = Math.floor(seconds / 86400);
-
-    const hours = Math.floor(
-      (seconds % 86400) / 3600
-    );
-
-    const minutes = Math.floor(
-      (seconds % 3600) / 60
-    );
-
-    const secs = seconds % 60;
-
-    const h = String(hours).padStart(2, "0");
-    const m = String(minutes).padStart(2, "0");
-    const s = String(secs).padStart(2, "0");
-
-    return `${days}D ${h}:${m}:${s}`;
-  };
-
-  // =========================================
-  // POPUP DATA
-  // =========================================
-
-  const popupData = {
-    watch: {
-      eyebrow: "MISSION INFORMATION",
-      title: "STARSHIP FLIGHT 14",
-
-      content: (
-        <>
-          <p>
-            Starship Flight 14 is the upcoming
-            flight of SpaceX&apos;s Starship
-            launch system.
-          </p>
-
-          <p>
-            The mission is planned to continue
-            testing the Starship system while
-            collecting valuable flight data.
-          </p>
-
-          <div className="popup-details">
-
-            <div>
-              <span>LAUNCH DATE</span>
-              <strong>
-                SEPTEMBER 22, 2026
-              </strong>
-            </div>
-
-            <div>
-              <span>LAUNCH WINDOW</span>
-              <strong>
-                17:45 – 19:00 IST
-              </strong>
-            </div>
-
-          </div>
-        </>
-      ),
-    },
-
-    explore: {
-      eyebrow: "SPACE EXPLORATION",
-      title: "SPACE X",
-
-      content: (
-        <>
-          <p>
-            SpaceX designs, manufactures and
-            launches advanced rockets and
-            spacecraft.
-          </p>
-
-          <p>
-            Its technologies focus on reusable
-            launch systems and future human
-            spaceflight.
-          </p>
-        </>
-      ),
-    },
-
-    starship: {
-      eyebrow: "FULLY REUSABLE SPACECRAFT",
-      title: "STARSHIP",
-
-      content: (
-        <>
-          <p>
-            Starship is a next-generation fully
-            reusable transportation system.
-          </p>
-
-          <p>
-            It is designed to carry crew and cargo
-            to Earth orbit and support future
-            missions to the Moon, Mars and beyond.
-          </p>
-        </>
-      ),
-    },
-
-    falcon: {
-      eyebrow: "WORLD'S LEADING LAUNCH SERVICE",
-      title: "FALCON 9",
-
-      content: (
-        <>
-          <p>
-            Falcon 9 is a reusable two-stage
-            rocket developed by SpaceX.
-          </p>
-
-          <p>
-            It is used to launch satellites,
-            spacecraft and crewed missions.
-          </p>
-        </>
-      ),
-    },
-
-    starlink: {
-      eyebrow: "HIGH-SPEED INTERNET",
-      title: "STARLINK",
-
-      content: (
-        <>
-          <p>
-            Starlink is a satellite internet
-            network developed by SpaceX.
-          </p>
-
-          <p>
-            It is designed to provide high-speed
-            connectivity around the world.
-          </p>
-        </>
-      ),
-    },
-
-    spacexai: {
-      eyebrow: "ADVANCED COMPUTING",
-      title: "SPACEXAI",
-
-      content: (
-        <>
-          <p>
-            Advanced computing and artificial
-            intelligence systems can support
-            increasingly complex space missions.
-          </p>
-
-          <p>
-            Future systems may combine autonomous
-            software and high-performance
-            computation.
-          </p>
-        </>
-      ),
-    },
-
-    terafab: {
-      eyebrow: "ADVANCED MANUFACTURING",
-      title: "TERAFAB",
-
-      content: (
-        <>
-          <p>
-            Next-generation manufacturing
-            infrastructure can support advanced
-            aerospace technology development.
-          </p>
-        </>
-      ),
-    },
-
-    company: {
-      eyebrow: "ABOUT SPACEX",
-      title: "COMPANY",
-
-      content: (
-        <>
-          <p>
-            SpaceX develops rockets, spacecraft
-            and satellite systems.
-          </p>
-
-          <p>
-            Its programs focus on developing
-            reusable space transportation
-            technologies.
-          </p>
-        </>
-      ),
-    },
-
-    shop: {
-      eyebrow: "SPACE X SHOP",
-      title: "SHOP",
-
-      content: (
-        <>
-          <p>
-            This section can later be connected
-            to an official shop or your own
-            product showcase.
-          </p>
-        </>
-      ),
-    },
-  };
-
-  // =========================================
-  // OPEN POPUP
-  // =========================================
-
-  const openPopup = (name) => {
-    setActivePopup(name);
-    setMenuOpen(false);
-  };
-
-  // =========================================
-  // CLOSE POPUP
-  // =========================================
-
-  const closePopup = () => {
-    setActivePopup(null);
-  };
-
-  // =========================================
-  // CLOSE MOBILE MENU
-  // =========================================
-
-  const closeMenu = () => {
-    setMenuOpen(false);
+    return false;
   };
 
   return (
-    <div className="site">
-
-      {/* =====================================
-          NAVBAR
-      ===================================== */}
-
+    <>
       <header className="navbar">
 
-        <div className="spacex-logo">
-          SPACEX
-        </div>
+        {/* BRAND */}
 
-        <nav className="desktop-nav">
+        <Link
+          to="/"
+          className="brand-logo"
+          onClick={() => setMobileOpen(false)}
+        >
+          BRAHMAND
+        </Link>
 
-          <a href="#vehicles">
-            VEHICLES
-          </a>
 
-          <a href="#human-spaceflight">
-            HUMAN SPACEFLIGHT
-          </a>
+        {/* DESKTOP NAVIGATION */}
 
-          <a href="#starlink">
-            STARLINK
-          </a>
+        <nav className="desktop-navigation">
 
-          <a href="#starshield">
-            STARSHIELD
-          </a>
+          {navigation.map((item) => (
 
-          <a href="#spacexai">
-            SPACEXAI
-          </a>
+            <div
+              className="nav-item"
+              key={item.label}
+            >
 
-          <a href="#terafab">
-            TERAFAB
-          </a>
+              {item.path ? (
 
-          <a href="#company">
-            COMPANY
-          </a>
+                <Link
+                  to={item.path}
+                  className={
+                    isActive(item)
+                      ? "active-link"
+                      : ""
+                  }
+                >
+                  {item.label}
+                </Link>
 
-          <a href="#shop">
-            SHOP
-          </a>
+              ) : (
+
+                <button
+                  className={
+                    isActive(item)
+                      ? "nav-parent active-link"
+                      : "nav-parent"
+                  }
+                >
+                  {item.label}
+                </button>
+
+              )}
+
+
+              {/* DROPDOWN */}
+
+              {item.dropdown && (
+
+                <div className="dropdown-menu">
+
+                  {item.dropdown.map((child) => (
+
+                    <Link
+                      key={child.path}
+                      to={child.path}
+                      className={
+                        location.pathname === child.path
+                          ? "dropdown-active"
+                          : ""
+                      }
+                    >
+                      {child.label}
+                    </Link>
+
+                  ))}
+
+                </div>
+
+              )}
+
+            </div>
+
+          ))}
 
         </nav>
+
+
+        {/* UPCOMING */}
 
         <div className="upcoming-launch">
 
           <span>
-            UPCOMING LAUNCHES
+            UPCOMING LAUNCH
           </span>
 
           <strong>
-            T-{formatTime(topCountdown)}
+            T-{Countdown()}
           </strong>
 
         </div>
 
+
+        {/* MOBILE MENU */}
+
         <button
           className={`hamburger ${
-            menuOpen ? "active" : ""
+            mobileOpen ? "active" : ""
           }`}
           onClick={() =>
-            setMenuOpen(!menuOpen)
+            setMobileOpen(!mobileOpen)
           }
-          aria-label="Toggle navigation"
         >
           <span></span>
           <span></span>
@@ -401,78 +344,150 @@ function App() {
       </header>
 
 
-      {/* =====================================
-          MOBILE NAV
-      ===================================== */}
+      {/* MOBILE NAV */}
+
+      {mobileOpen && (
+
+        <div className="mobile-navigation">
+
+          <Link
+            to="/"
+            onClick={() => setMobileOpen(false)}
+          >
+            HOME
+          </Link>
+
+          {navigation.map((item) => (
+
+            <div
+              className="mobile-nav-group"
+              key={item.label}
+            >
+
+              {item.path ? (
+
+                <Link
+                  to={item.path}
+                  onClick={() =>
+                    setMobileOpen(false)
+                  }
+                >
+                  {item.label}
+                </Link>
+
+              ) : (
+
+                <div className="mobile-nav-title">
+                  {item.label}
+                </div>
+
+              )}
+
+              {item.dropdown && (
+
+                <div className="mobile-submenu">
+
+                  {item.dropdown.map((child) => (
+
+                    <Link
+                      key={child.path}
+                      to={child.path}
+                      onClick={() =>
+                        setMobileOpen(false)
+                      }
+                    >
+                      {child.label}
+                    </Link>
+
+                  ))}
+
+                </div>
+
+              )}
+
+            </div>
+
+          ))}
+
+        </div>
+
+      )}
+    </>
+  );
+}
+
+
+// =====================================================
+// POPUP
+// =====================================================
+
+function InfoPopup({
+  eyebrow,
+  title,
+  description,
+  closePopup,
+}) {
+  return (
+    <div
+      className="popup-backdrop"
+      onClick={closePopup}
+    >
 
       <div
-        className={`mobile-nav ${
-          menuOpen ? "show" : ""
-        }`}
+        className="popup"
+        onClick={(event) =>
+          event.stopPropagation()
+        }
       >
 
-        <a
-          href="#vehicles"
-          onClick={closeMenu}
+        <button
+          className="popup-close"
+          onClick={closePopup}
         >
-          VEHICLES
-        </a>
+          ×
+        </button>
 
-        <a
-          href="#human-spaceflight"
-          onClick={closeMenu}
-        >
-          HUMAN SPACEFLIGHT
-        </a>
+        <div className="popup-eyebrow">
+          {eyebrow}
+        </div>
 
-        <a
-          href="#starlink"
-          onClick={closeMenu}
-        >
-          STARLINK
-        </a>
+        <h2>{title}</h2>
 
-        <a
-          href="#starshield"
-          onClick={closeMenu}
-        >
-          STARSHIELD
-        </a>
+        <div className="popup-divider"></div>
 
-        <a
-          href="#spacexai"
-          onClick={closeMenu}
-        >
-          SPACEXAI
-        </a>
+        <p>{description}</p>
 
-        <a
-          href="#terafab"
-          onClick={closeMenu}
+        <button
+          className="popup-button"
+          onClick={closePopup}
         >
-          TERAFAB
-        </a>
-
-        <a
-          href="#company"
-          onClick={closeMenu}
-        >
-          COMPANY
-        </a>
-
-        <a
-          href="#shop"
-          onClick={closeMenu}
-        >
-          SHOP
-        </a>
+          CLOSE
+        </button>
 
       </div>
 
+    </div>
+  );
+}
 
-      {/* =====================================
-          HERO VIDEO
-      ===================================== */}
+
+// =====================================================
+// HOME PAGE
+// =====================================================
+
+function Home() {
+  const [popup, setPopup] = useState(null);
+
+  const openPopup = (data) => {
+    setPopup(data);
+  };
+
+  return (
+    <main>
+
+      {/* =================================================
+          HERO
+      ================================================= */}
 
       <section className="hero">
 
@@ -493,8 +508,8 @@ function App() {
 
         <div className="hero-content">
 
-          <div className="hero-countdown">
-            T-{formatTime(heroCountdown)}
+          <div className="hero-time">
+            T-<Countdown />
           </div>
 
           <h1>
@@ -502,41 +517,36 @@ function App() {
           </h1>
 
           <button
-            className="watch-button"
+            className="hero-button"
             onClick={() =>
-              openPopup("watch")
+              openPopup({
+                eyebrow:
+                  "MISSION INFORMATION",
+                title:
+                  "STARSHIP FLIGHT 14",
+                description:
+                  "Explore the mission information, flight objectives and Starship program details.",
+              })
             }
           >
-
-            <span>
-              WATCH
-            </span>
-
-            <span className="arrow">
-              →
-            </span>
-
+            WATCH
+            <span>→</span>
           </button>
 
         </div>
 
-        <div className="scroll-indicator">
-          <span></span>
-        </div>
+        <div className="scroll-line"></div>
 
       </section>
 
 
-      {/* =====================================
-          MARS
-      ===================================== */}
+      {/* =================================================
+          MARS SECTION
+      ================================================= */}
 
-      <section
-        className="multiplanetary-section"
-        id="vehicles"
-      >
+      <section className="mars-section">
 
-        <div className="multiplanetary-image">
+        <div className="mars-image">
 
           <img
             src={marsImage}
@@ -545,11 +555,11 @@ function App() {
 
         </div>
 
-        <div className="multiplanetary-overlay"></div>
+        <div className="mars-gradient"></div>
 
-        <div className="multiplanetary-content">
+        <div className="mars-content">
 
-          <div className="eyebrow">
+          <div className="section-eyebrow">
             SPACE EXPLORATION
           </div>
 
@@ -562,16 +572,24 @@ function App() {
           </h2>
 
           <p>
-            SpaceX was founded under the belief
-            that a future where humanity is out
-            exploring the stars is fundamentally
-            more exciting than one where we are not.
+            Brahmand is built around the idea
+            of expanding the boundaries of
+            exploration and making space more
+            accessible through advanced
+            technology.
           </p>
 
           <button
-            className="outline-button light-button"
+            className="outline-button"
             onClick={() =>
-              openPopup("explore")
+              openPopup({
+                eyebrow:
+                  "SPACE EXPLORATION",
+                title:
+                  "MAKING LIFE MULTIPLANETARY",
+                description:
+                  "Discover the technologies and missions that are shaping the future of human space exploration.",
+              })
             }
           >
             EXPLORE
@@ -583,44 +601,46 @@ function App() {
       </section>
 
 
-      {/* =====================================
+      {/* =================================================
           STARSHIP
-      ===================================== */}
+      ================================================= */}
 
       <section
-        className="visual-section starship-section"
-        id="human-spaceflight"
+        className="visual-section starship-home"
         style={{
           backgroundImage:
             `url(${starshipImage})`,
         }}
       >
 
-        <div className="visual-overlay"></div>
+        <div className="visual-gradient"></div>
 
-        <div className="starship-content">
+        <div className="right-content">
 
-          <div className="eyebrow">
+          <div className="section-eyebrow">
             REVOLUTIONIZING SPACE TECHNOLOGY
           </div>
 
-          <h2>
-            STARSHIP
-          </h2>
+          <h2>STARSHIP</h2>
 
           <p>
-            SpaceX&apos;s Starship spacecraft
-            and Super Heavy rocket is a fully
-            reusable transportation system
-            designed to carry both crew and cargo
-            to Earth orbit, the Moon, Mars,
-            and beyond.
+            A fully reusable transportation
+            system designed to carry crew and
+            cargo to Earth orbit, the Moon,
+            Mars and beyond.
           </p>
 
           <button
-            className="outline-button light-button"
+            className="outline-button"
             onClick={() =>
-              openPopup("starship")
+              openPopup({
+                eyebrow:
+                  "FULLY REUSABLE SPACECRAFT",
+                title:
+                  "STARSHIP",
+                description:
+                  "Learn about the Starship spacecraft, its reusable architecture and its role in future space missions.",
+              })
             }
           >
             LEARN MORE
@@ -632,25 +652,24 @@ function App() {
       </section>
 
 
-      {/* =====================================
+      {/* =================================================
           FALCON 9
-      ===================================== */}
+      ================================================= */}
 
       <section
-        className="visual-section falcon-section"
-        id="starlink"
+        className="visual-section falcon-home"
         style={{
           backgroundImage:
             `url(${falcon9Image})`,
         }}
       >
 
-        <div className="visual-overlay falcon-overlay"></div>
+        <div className="visual-gradient falcon-gradient"></div>
 
-        <div className="falcon-content">
+        <div className="left-content">
 
-          <div className="eyebrow">
-            WORLD&apos;S LEADING LAUNCH SERVICE PROVIDER
+          <div className="section-eyebrow">
+            WORLD&apos;S LEADING LAUNCH SERVICE
           </div>
 
           <h2>
@@ -658,16 +677,22 @@ function App() {
           </h2>
 
           <p>
-            SpaceX leads the world in launches
-            with its reliable, reusable rockets
-            and is developing rapidly reusable
-            systems to transform access to space.
+            Reliable and reusable launch
+            technology designed to make
+            access to space more affordable.
           </p>
 
           <button
-            className="outline-button light-button"
+            className="outline-button"
             onClick={() =>
-              openPopup("falcon")
+              openPopup({
+                eyebrow:
+                  "REUSABLE ROCKET",
+                title:
+                  "FALCON 9",
+                description:
+                  "Explore Falcon 9 and its reusable first-stage technology.",
+              })
             }
           >
             RESERVE YOUR RIDE
@@ -679,24 +704,23 @@ function App() {
       </section>
 
 
-      {/* =====================================
+      {/* =================================================
           STARLINK
-      ===================================== */}
+      ================================================= */}
 
       <section
-        className="visual-section starlink-section"
-        id="starshield"
+        className="visual-section starlink-home"
         style={{
           backgroundImage:
             `url(${starlinkImage})`,
         }}
       >
 
-        <div className="visual-overlay starlink-overlay"></div>
+        <div className="visual-gradient"></div>
 
-        <div className="starlink-content">
+        <div className="bottom-left-content">
 
-          <div className="eyebrow">
+          <div className="section-eyebrow">
             DELIVERING HIGH-SPEED INTERNET
           </div>
 
@@ -711,9 +735,16 @@ function App() {
           </p>
 
           <button
-            className="outline-button light-button"
+            className="outline-button"
             onClick={() =>
-              openPopup("starlink")
+              openPopup({
+                eyebrow:
+                  "HIGH-SPEED INTERNET",
+                title:
+                  "STARLINK",
+                description:
+                  "Explore satellite internet technology and the Starlink network.",
+              })
             }
           >
             ORDER NOW
@@ -725,70 +756,66 @@ function App() {
       </section>
 
 
-      {/* =====================================
-          SPACEXAI
-      ===================================== */}
+      {/* =================================================
+          SPACEXAI / BRAHMAND AI
+      ================================================= */}
 
       <section
-        className="visual-section spacexai-section"
-        id="spacexai"
+        className="visual-section ai-home"
         style={{
           backgroundImage:
             `url(${spacexaiImage})`,
         }}
       >
 
-        <div className="visual-overlay"></div>
+        <div className="visual-gradient"></div>
 
-        <div className="spacexai-content">
+        <div className="left-content">
 
-          <div className="eyebrow">
+          <div className="section-eyebrow">
             ADVANCED COMPUTING
           </div>
 
           <h2>
-            SPACEXAI
+            BRAHMAND AI
           </h2>
 
           <p>
             Advanced computing and artificial
             intelligence infrastructure for
-            future space systems.
+            future systems.
           </p>
 
-          <button
-            className="outline-button light-button"
-            onClick={() =>
-              openPopup("spacexai")
-            }
+          <Link
+            className="outline-button"
+            to="/brahmand-ai/mind"
           >
             EXPLORE
             <span>→</span>
-          </button>
+          </Link>
 
         </div>
 
       </section>
 
 
-      {/* =====================================
+      {/* =================================================
           TERAFAB
-      ===================================== */}
+      ================================================= */}
 
       <section
-        className="visual-section terafab-section"
-        id="terafab"
+        className="visual-section terafab-home"
         style={{
           backgroundImage:
             `url(${terafabImage})`,
         }}
       >
 
-        <div className="visual-overlay"></div>
+        <div className="visual-gradient"></div>
 
-        <div className="terafab-content">
+        <div className="right-content">
 
-          <div className="eyebrow">
+          <div className="section-eyebrow">
             ADVANCED MANUFACTURING
           </div>
 
@@ -802,180 +829,462 @@ function App() {
             technology.
           </p>
 
-          <button
-            className="outline-button light-button"
-            onClick={() =>
-              openPopup("terafab")
-            }
+          <Link
+            className="outline-button"
+            to="/terafab"
           >
             LEARN MORE
             <span>→</span>
-          </button>
+          </Link>
 
         </div>
 
       </section>
 
 
-      {/* =====================================
-          COMPANY
-      ===================================== */}
+      {/* =================================================
+          POPUP
+      ================================================= */}
 
-      <section
-        className="info-section dark-info"
-        id="company"
-      >
+      {popup && (
 
-        <div className="info-content">
+        <InfoPopup
+          eyebrow={popup.eyebrow}
+          title={popup.title}
+          description={popup.description}
+          closePopup={() =>
+            setPopup(null)
+          }
+        />
 
-          <div className="eyebrow">
-            ABOUT SPACEX
-          </div>
+      )}
 
-          <h2>
-            COMPANY
-          </h2>
+    </main>
+  );
+}
 
-          <p>
-            Learn more about SpaceX, its
-            technology, missions and
-            long-term vision.
-          </p>
 
-          <button
-            className="outline-button light-button"
-            onClick={() =>
-              openPopup("company")
+// =====================================================
+// GENERIC PAGE
+// =====================================================
+
+function GenericPage({
+  title,
+  eyebrow,
+  description,
+  image,
+}) {
+  return (
+    <section
+      className="generic-page"
+      style={
+        image
+          ? {
+              backgroundImage:
+                `url(${image})`,
             }
-          >
-            EXPLORE
-            <span>→</span>
-          </button>
+          : {}
+      }
+    >
 
+      <div className="generic-overlay"></div>
+
+      <div className="generic-content">
+
+        <div className="section-eyebrow">
+          {eyebrow}
         </div>
 
-      </section>
+        <h1>{title}</h1>
+
+        <p>{description}</p>
+
+        <Link
+          to="/"
+          className="outline-button"
+        >
+          BACK HOME
+          <span>←</span>
+        </Link>
+
+      </div>
+
+    </section>
+  );
+}
 
 
-      {/* =====================================
-          SHOP
-      ===================================== */}
+// =====================================================
+// APP ROUTES
+// =====================================================
 
-      <section
-        className="info-section light-info"
-        id="shop"
-      >
+function AppRoutes() {
+  return (
+    <>
+      <Navbar />
 
-        <div className="info-content">
+      <Routes>
 
-          <div className="eyebrow">
-            SPACE X SHOP
-          </div>
+        {/* HOME */}
 
-          <h2>
-            SHOP
-          </h2>
-
-          <p>
-            SpaceX merchandise and products.
-          </p>
-
-          <button
-            className="outline-button dark-button"
-            onClick={() =>
-              openPopup("shop")
-            }
-          >
-            VIEW INFO
-            <span>→</span>
-          </button>
-
-        </div>
-
-      </section>
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
 
-      {/* =====================================
-          FOOTER
-      ===================================== */}
+        {/* VEHICLES */}
+
+        <Route
+          path="/vehicles/starship"
+          element={
+            <GenericPage
+              title="STARSHIP"
+              eyebrow="VEHICLES"
+              description="Explore the Starship transportation system and its reusable architecture."
+              image={starshipImage}
+            />
+          }
+        />
+
+        <Route
+          path="/vehicles/dragon"
+          element={
+            <GenericPage
+              title="DRAGON"
+              eyebrow="VEHICLES"
+              description="Explore Dragon spacecraft and human spaceflight capabilities."
+              image={starshipImage}
+            />
+          }
+        />
+
+        <Route
+          path="/vehicles/falcon-9"
+          element={
+            <GenericPage
+              title="FALCON 9"
+              eyebrow="VEHICLES"
+              description="Explore Falcon 9 and reusable launch technology."
+              image={falcon9Image}
+            />
+          }
+        />
+
+        <Route
+          path="/vehicles/falcon-heavy"
+          element={
+            <GenericPage
+              title="FALCON HEAVY"
+              eyebrow="VEHICLES"
+              description="Explore heavy-lift launch technology."
+              image={falcon9Image}
+            />
+          }
+        />
+
+
+        {/* HUMAN SPACEFLIGHT */}
+
+        <Route
+          path="/human-spaceflight"
+          element={
+            <GenericPage
+              title="HUMAN SPACEFLIGHT"
+              eyebrow="HUMAN SPACEFLIGHT"
+              description="Explore human spaceflight missions, destinations and future exploration."
+              image={starshipImage}
+            />
+          }
+        />
+
+        <Route
+          path="/human-spaceflight/space-station"
+          element={
+            <GenericPage
+              title="SPACE STATION"
+              eyebrow="HUMAN SPACEFLIGHT"
+              description="Human missions and transportation supporting life and research in orbit."
+              image={starlinkImage}
+            />
+          }
+        />
+
+        <Route
+          path="/human-spaceflight/earth-orbit"
+          element={
+            <GenericPage
+              title="EARTH ORBIT"
+              eyebrow="HUMAN SPACEFLIGHT"
+              description="Discover missions operating in Earth orbit."
+              image={falcon9Image}
+            />
+          }
+        />
+
+        <Route
+          path="/human-spaceflight/moon"
+          element={
+            <GenericPage
+              title="THE MOON"
+              eyebrow="HUMAN SPACEFLIGHT"
+              description="Explore technologies supporting future lunar missions."
+              image={marsImage}
+            />
+          }
+        />
+
+        <Route
+          path="/human-spaceflight/mars-beyond"
+          element={
+            <GenericPage
+              title="MARS & BEYOND"
+              eyebrow="HUMAN SPACEFLIGHT"
+              description="Explore the long-term vision of extending humanity beyond Earth."
+              image={marsImage}
+            />
+          }
+        />
+
+
+        {/* STARLINK */}
+
+        <Route
+          path="/starlink"
+          element={
+            <GenericPage
+              title="STARLINK"
+              eyebrow="SATELLITE INTERNET"
+              description="High-speed internet connectivity from a satellite network in low Earth orbit."
+              image={starlinkImage}
+            />
+          }
+        />
+
+
+        {/* STARSHIELD */}
+
+        <Route
+          path="/starshield"
+          element={
+            <GenericPage
+              title="STARSHIELD"
+              eyebrow="SECURE SATELLITE TECHNOLOGY"
+              description="A dedicated space technology platform designed for secure and resilient satellite applications."
+              image={starlinkImage}
+            />
+          }
+        />
+
+
+        {/* BRAHMAND AI */}
+
+        <Route
+          path="/brahmand-ai/mind"
+          element={
+            <GenericPage
+              title="BRAHMAND MIND"
+              eyebrow="BRAHMAND AI"
+              description="Explore the future of advanced orbital computing and artificial intelligence."
+              image={spacexaiImage}
+            />
+          }
+        />
+
+        <Route
+          path="/brahmand-ai/grok"
+          element={
+            <GenericPage
+              title="GROK"
+              eyebrow="BRAHMAND AI"
+              description="AI-powered conversational technology."
+              image={spacexaiImage}
+            />
+          }
+        />
+
+        <Route
+          path="/brahmand-ai/grokipedia"
+          element={
+            <GenericPage
+              title="GROKIPEDIA"
+              eyebrow="BRAHMAND AI"
+              description="An AI-focused knowledge experience."
+              image={spacexaiImage}
+            />
+          }
+        />
+
+        <Route
+          path="/brahmand-ai/x"
+          element={
+            <GenericPage
+              title="X"
+              eyebrow="BRAHMAND AI"
+              description="Explore the connected digital ecosystem."
+              image={spacexaiImage}
+            />
+          }
+        />
+
+
+        {/* TERAFAB */}
+
+        <Route
+          path="/terafab"
+          element={
+            <GenericPage
+              title="TERAFAB"
+              eyebrow="ADVANCED MANUFACTURING"
+              description="Next-generation manufacturing infrastructure for advanced technology."
+              image={terafabImage}
+            />
+          }
+        />
+
+
+        {/* COMPANY */}
+
+        <Route
+          path="/company/mission"
+          element={
+            <GenericPage
+              title="MISSION"
+              eyebrow="COMPANY"
+              description="Explore the mission and long-term vision behind Brahmand."
+              image={marsImage}
+            />
+          }
+        />
+
+        <Route
+          path="/company/careers"
+          element={
+            <GenericPage
+              title="CAREERS"
+              eyebrow="COMPANY"
+              description="Discover opportunities to work on ambitious technology and exploration projects."
+            />
+          }
+        />
+
+        <Route
+          path="/company/sites"
+          element={
+            <GenericPage
+              title="SITES"
+              eyebrow="COMPANY"
+              description="Explore Brahmand facilities and technology locations."
+            />
+          }
+        />
+
+        <Route
+          path="/company/updates"
+          element={
+            <GenericPage
+              title="UPDATES"
+              eyebrow="COMPANY"
+              description="Latest news, missions and technology updates."
+            />
+          }
+        />
+
+        <Route
+          path="/company/content"
+          element={
+            <GenericPage
+              title="CONTENT"
+              eyebrow="COMPANY"
+              description="Explore videos, images and educational content."
+            />
+          }
+        />
+
+        <Route
+          path="/company/investors"
+          element={
+            <GenericPage
+              title="INVESTORS"
+              eyebrow="COMPANY"
+              description="Investor and corporate information."
+            />
+          }
+        />
+
+
+        {/* SHOP */}
+
+        <Route
+          path="/shop/brahmand"
+          element={
+            <GenericPage
+              title="BRAHMAND SHOP"
+              eyebrow="SHOP"
+              description="Explore Brahmand merchandise and products."
+              image={starshipImage}
+            />
+          }
+        />
+
+        <Route
+          path="/shop/brahmand-ai"
+          element={
+            <GenericPage
+              title="BRAHMAND AI SHOP"
+              eyebrow="SHOP"
+              description="Explore Brahmand AI products and merchandise."
+              image={spacexaiImage}
+            />
+          }
+        />
+
+      </Routes>
+
+
+      {/* FOOTER */}
 
       <footer className="footer">
 
         <div className="footer-logo">
-          SPACEX
+          BRAHMAND
         </div>
 
         <div className="footer-links">
 
-          <a href="#privacy">
-            PRIVACY POLICY
-          </a>
+          <Link to="/">
+            HOME
+          </Link>
 
-          <a href="#suppliers">
-            SUPPLIERS
-          </a>
+          <Link to="/company/mission">
+            MISSION
+          </Link>
+
+          <Link to="/company/careers">
+            CAREERS
+          </Link>
 
         </div>
 
         <div className="footer-copy">
-          © 2026 SPACE EXPLORATION TECHNOLOGIES CORP.
+          © 2026 BRAHMAND
         </div>
 
       </footer>
+    </>
+  );
+}
 
 
-      {/* =====================================
-          POPUP
-      ===================================== */}
+// =====================================================
+// MAIN APP
+// =====================================================
 
-      {activePopup && (
-        <div
-          className="popup-backdrop"
-          onClick={closePopup}
-        >
-
-          <div
-            className="popup"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
-          >
-
-            <button
-              className="popup-close"
-              onClick={closePopup}
-              aria-label="Close popup"
-            >
-              ×
-            </button>
-
-            <div className="popup-eyebrow">
-              {popupData[activePopup].eyebrow}
-            </div>
-
-            <h2>
-              {popupData[activePopup].title}
-            </h2>
-
-            <div className="popup-divider"></div>
-
-            <div className="popup-content">
-              {popupData[activePopup].content}
-            </div>
-
-            <button
-              className="popup-close-button"
-              onClick={closePopup}
-            >
-              CLOSE
-            </button>
-
-          </div>
-
-        </div>
-      )}
-
-    </div>
+function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 
